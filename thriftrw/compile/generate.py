@@ -69,12 +69,13 @@ class Generator(object):
         for key, value in enum_spec.items.items():
             self.scope.add_const_spec(
                 spec.ConstSpec(
-                    name=enum_spec.name + '.' + key,
+                    name=f'{enum_spec.name}.{key}',
                     value_spec=ConstValuePrimitive(value),
                     type_spec=spec.I32TypeSpec,
                     save=False,
                 )
             )
+
         self.scope.add_type_spec(enum.name, enum_spec, enum.lineno)
 
     def visit_struct(self, struct):

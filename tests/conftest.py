@@ -68,8 +68,7 @@ def pytest_runtest_teardown(item, nextitem):
 
             # ...
     """
-    marker = item.get_marker('unimport')
-    if marker:
+    if marker := item.get_marker('unimport'):
         unimport(*marker.args)
 
 

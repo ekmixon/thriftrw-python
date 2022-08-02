@@ -29,7 +29,7 @@ class ThriftRequestHandler(web.RequestHandler):
         self.write(reply)
 
     def handle_ping(self, args):
-        print('Hello, %s' % args.name)
+        print(f'Hello, {args.name}')
         return ping.Pong(time.time())
 
     _METHODS = {'ping': (ping.Ping.ping, handle_ping)}

@@ -61,7 +61,7 @@ class ContsValueMap(object):
 
     def link(self, scope, type_spec):
         if type_spec.ttype_code not in (ttype.MAP, ttype.STRUCT):
-            raise TypeError('Expected a %s but got a map.' % type_spec.name)
+            raise TypeError(f'Expected a {type_spec.name} but got a map.')
 
         if self.linked:
             return self
@@ -116,7 +116,7 @@ class ConstValueList(object):
 
     def link(self, scope, type_spec):
         if type_spec.ttype_code not in (ttype.LIST, ttype.SET):
-            raise TypeError('Expected a %s but got a list.' % type_spec.name)
+            raise TypeError(f'Expected a {type_spec.name} but got a list.')
         if not self.linked:
             self.linked = True
 

@@ -149,7 +149,7 @@ def install(path, name=None):
         name = os.path.splitext(os.path.basename(path))[0]
 
     callermod = inspect.getmodule(inspect.stack()[1][0])
-    name = '%s.%s' % (callermod.__name__, name)
+    name = f'{callermod.__name__}.{name}'
 
     if name in sys.modules:
         return sys.modules[name]

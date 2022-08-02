@@ -295,10 +295,7 @@ def test_multi_level_cyclic_import(tmpdir, loader):
     ''')
 
     a = loader.load(str(tmpdir.join('a.thrift')))
-    assert (
-        a.__includes__ == (a.b, a.c) or
-        a.__includes__ == (a.c, a.b)
-    )
+    assert a.__includes__ in [(a.b, a.c), (a.c, a.b)]
 
     assert a.b.d is a.c.d
 

@@ -9,8 +9,6 @@ from setuptools.command.sdist import sdist as _sdist
 from setuptools.extension import Extension as _Extension
 
 cmdclass = {}
-ext_modules = []
-
 cython_modules = [
     'thriftrw._buffer',
     'thriftrw._cython',
@@ -93,14 +91,14 @@ if Extension is None:
     Extension = _Extension
 
 
-for module in cython_modules:
-    ext_modules.append(
-        Extension(
-            module,
-            [module.replace('.', '/') + extension_filetype],
-            **extension_extras
-        )
+ext_modules = [
+    Extension(
+        module,
+        [module.replace('.', '/') + extension_filetype],
+        **extension_extras
     )
+    for module in cython_modules
+]
 
 
 class sdist(_sdist):
@@ -124,9 +122,8 @@ cmdclass['sdist'] = sdist
 version = None
 with open('thriftrw/__init__.py', 'r') as f:
     for line in f:
-        m = re.match(r'^__version__\s*=\s*(["\'])([^"\']+)\1', line)
-        if m:
-            version = m.group(2)
+        if m := re.match(r'^__version__\s*=\s*(["\'])([^"\']+)\1', line):
+            version = m[2]
             break
 
 if not version:

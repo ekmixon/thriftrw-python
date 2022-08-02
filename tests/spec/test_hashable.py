@@ -56,7 +56,6 @@ def test_hashable(loads, name, src, kwargs):
     obj1 = klass(**kwargs)
     obj2 = klass(**kwargs)
     assert hash(obj1) == hash(obj2)
-    assert hash(obj1) == hash(obj1)
 
 
 @pytest.mark.parametrize('name, src, kwargs1, kwargs2', [

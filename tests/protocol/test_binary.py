@@ -52,9 +52,7 @@ from ..util.spec import (
 
 
 def reader_writer_ids(x):
-    if isinstance(x, (list, value.Value)):
-        return None
-    return ttype.name_of(x)
+    return None if isinstance(x, (list, value.Value)) else ttype.name_of(x)
 
 
 @pytest.mark.parametrize('typ, bs, spec, value', [

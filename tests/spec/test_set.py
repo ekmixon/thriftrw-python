@@ -55,16 +55,12 @@ def test_link(parse, scope):
     spec = spec.link(scope)
     assert spec.vspec == prim_spec.TextTypeSpec
 
-    value = set([u'foo', u'bar'])
-    assert (
-        spec.to_wire(value) == vset(
-            ttype.BINARY, vbinary(b'foo'), vbinary(b'bar')
-        )
-    ) or (
-        spec.to_wire(value) == vset(
-            ttype.BINARY, vbinary(b'bar'), vbinary(b'foo')
-        )
-    )
+    value = {u'foo', u'bar'}
+    assert spec.to_wire(value) in [
+        vset(ttype.BINARY, vbinary(b'foo'), vbinary(b'bar')),
+        vset(ttype.BINARY, vbinary(b'bar'), vbinary(b'foo')),
+    ]
+
     assert value == spec.from_wire(spec.to_wire(value))
 
 
@@ -72,18 +68,18 @@ def test_primitive(parse, scope):
     ast = parse('set<i32>')
     spec = type_spec_or_ref(ast).link(scope)
 
-    prim_value = spec.to_primitive(set([1, 2, 3]))
+    prim_value = spec.to_primitive({1, 2, 3})
     assert any(prim_value == list(xs) for xs in permutations([1, 2, 3]))
-    assert spec.from_primitive(prim_value) == set([1, 2, 3])
+    assert spec.from_primitive(prim_value) == {1, 2, 3}
 
 
 def test_validate():
     spec = SetTypeSpec(prim_spec.TextTypeSpec)
 
-    spec.validate(set(['a']))
+    spec.validate({'a'})
 
     with pytest.raises(TypeError):
-        spec.validate(set([1]))
+        spec.validate({1})
 
     with pytest.raises(TypeError):
         spec.validate(1)

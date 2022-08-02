@@ -93,7 +93,7 @@ def test_link(loads):
     assert mod.true_from_num
     assert not mod.false_from_num
 
-    assert mod.aSet == set(["hello", "world"])
+    assert mod.aSet == {"hello", "world"}
     assert mod.aList == ['hello', 'hello', 'world']
     assert mod.aMap == {
         1: 'hello',
@@ -172,11 +172,13 @@ def test_enum_from_future_is_allowed(loads):
 
 
 def test_set_is_transformed(loads):
-    assert loads('''
+    assert loads(
+        '''
         const map<string, set<i32>> some_const = {
             "foo": [1, 1, 2, 3, 2, 3, 3]
         };
-    ''').some_const == {'foo': set([1, 2, 3])}
+    '''
+    ).some_const == {'foo': {1, 2, 3}}
 
 
 def test_structs_can_be_constants_and_defaults(loads):

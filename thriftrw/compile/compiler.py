@@ -116,11 +116,10 @@ class ModuleSpec(object):
 
         self.linked = True
 
-        included_modules = []
+        included_modules = [
+            include.link().surface for include in self.includes.values()
+        ]
 
-        # Link includes
-        for include in self.includes.values():
-            included_modules.append(include.link().surface)
 
         self.scope.add_surface('__includes__', tuple(included_modules))
         self.scope.add_surface('__thrift_source__', self.thrift_source)

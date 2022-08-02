@@ -271,18 +271,12 @@ class ParserSpec(object):
     def p_throws(self, p):
         '''throws : THROWS '(' field_seq ')'
                   |'''
-        if len(p) == 5:
-            p[0] = p[3]
-        else:
-            p[0] = deque()
+        p[0] = p[3] if len(p) == 5 else deque()
 
     def p_function_type(self, p):
         '''function_type : field_type
                          | VOID'''
-        if p[1] == 'void':
-            p[0] = None
-        else:
-            p[0] = p[1]
+        p[0] = None if p[1] == 'void' else p[1]
 
     def p_field_seq(self, p):
         '''field_seq : field sep field_seq
@@ -333,10 +327,7 @@ class ParserSpec(object):
         '''field_req : REQUIRED
                      | OPTIONAL
                      |'''
-        if len(p) == 2:
-            p[0] = p[1] == 'required'
-        else:
-            p[0] = None  # don't have a default
+        p[0] = p[1] == 'required' if len(p) == 2 else None
 
     def p_field_type(self, p):
         '''field_type : ref_type
@@ -390,10 +381,7 @@ class ParserSpec(object):
     def p_annotations(self, p):
         '''annotations : '(' annotation_seq ')'
                        |'''
-        if len(p) == 1:
-            p[0] = []
-        else:
-            p[0] = list(p[2])
+        p[0] = [] if len(p) == 1 else list(p[2])
 
     def p_annotation_seq(self, p):
         '''annotation_seq : annotation sep annotation_seq

@@ -91,14 +91,8 @@ def test_services_and_types(loads):
         'y': 123,
     } == m.__constants__
 
-    assert (
-        m.__types__ == (m.Foo, m.Bar) or
-        m.__types__ == (m.Bar, m.Foo)
-    )
+    assert m.__types__ in [(m.Foo, m.Bar), (m.Bar, m.Foo)]
 
-    assert (
-        m.__services__ == (m.A, m.B) or
-        m.__services__ == (m.B, m.A)
-    )
+    assert m.__services__ in [(m.A, m.B), (m.B, m.A)]
 
     assert m.__thrift_source__ == s

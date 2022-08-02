@@ -74,8 +74,8 @@ def test_compile_values_collide(parse):
     spec = EnumTypeSpec.compile(enum_ast)
 
     assert spec.items == {'A': 0, 'B': 1, 'C': 0, 'D': 1}
-    assert set(spec.values_to_names[0]) == set(['A', 'C'])
-    assert set(spec.values_to_names[1]) == set(['B', 'D'])
+    assert set(spec.values_to_names[0]) == {'A', 'C'}
+    assert set(spec.values_to_names[1]) == {'B', 'D'}
 
 
 def test_link(loads):
@@ -94,8 +94,8 @@ def test_link(loads):
     assert TestEnum.name_of(3) == 'C'
     assert not TestEnum.name_of(4)
 
-    assert set(TestEnum.values) == set((1, 2, 3))
-    assert set(TestEnum.items) == set(('A', 'B', 'C'))
+    assert set(TestEnum.values) == {1, 2, 3}
+    assert set(TestEnum.items) == {'A', 'B', 'C'}
 
 
 def test_to_wire(loads):

@@ -58,12 +58,16 @@ def value(module, request):
             mapped={n: 'bar' for n in range(100000)},
         )
     elif request.param == 'nested_structs':
-        return module.Graph(edges=[
-            module.Edge(
-                start=module.Point(1.23, 4.56),
-                end=module.Point(1.23, 4.56),
-            ) for i in range(1000)
-        ])
+        return module.Graph(
+            edges=[
+                module.Edge(
+                    start=module.Point(1.23, 4.56),
+                    end=module.Point(1.23, 4.56),
+                )
+                for _ in range(1000)
+            ]
+        )
+
     else:
         raise NotImplementedError
 

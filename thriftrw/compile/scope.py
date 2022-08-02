@@ -68,10 +68,7 @@ class Scope(object):
         """Helper for error messages to say "in $path" if the scope has a
         non-none path.
         """
-        if self.path:
-            return ' in "%s"' % self.path
-        else:
-            return ''
+        return ' in "%s"' % self.path if self.path else ''
 
     def resolve_const_spec(self, name, lineno):
         """Finds and links the ConstSpec with the given name."""

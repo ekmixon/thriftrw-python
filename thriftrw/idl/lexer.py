@@ -140,7 +140,7 @@ class LexerSpec(object):
                 if s[i] in maps:
                     val += maps[s[i]]
                 else:
-                    msg = 'Cannot escape character: %s' % s[i]
+                    msg = f'Cannot escape character: {s[i]}'
                     raise ThriftParserError(msg)
             else:
                 val += s[i]
